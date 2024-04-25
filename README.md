@@ -1,12 +1,13 @@
 # URL
 http://localhost:8000/
 
-# laravel
+# docker-compose コマンド
 docker-compose -f docker/compose.yml up
 docker-compose -f docker/compose.yml build
 docker-compose -f docker/compose.yml build --no-cache
 docker-compose -f docker/compose.yml down -v
 
+# コンテナに入る
 docker-compose -f docker/compose.yml exec app bash
 docker-compose -f docker/compose.yml exec db mysql -u root -pPassw0rd -D laravel
 
