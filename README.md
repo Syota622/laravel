@@ -1,3 +1,6 @@
+# URL
+http://localhost:8000/
+
 # laravel
 docker-compose -f docker/compose.yml up
 docker-compose -f docker/compose.yml build
@@ -17,3 +20,11 @@ docker-compose -f docker/compose.yml exec app php artisan view:clear
 docker-compose -f docker/compose.yml exec app php artisan migrate
 docker-compose -f docker/compose.yml exec app php artisan make:model User -m
 docker-compose -f docker/compose.yml exec app php artisan make:controller Auth/RegisterController
+docker-compose -f docker/compose.yml exec app php artisan make:migration create_posts_table --create=posts
+
+# コントローラーの生成
+docker-compose -f docker/compose.yml exec app php artisan make:controller Auth/LoginController
+docker-compose -f docker/compose.yml exec app php artisan make:controller PostController
+
+# モデルの生成
+docker-compose -f docker/compose.yml exec app php artisan make:model Post
