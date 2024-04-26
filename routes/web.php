@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\MessageController;
 
 // 既存のルート
 Route::get('/', function () {
@@ -26,3 +27,8 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 // 投稿を処理するための POST リクエストのルート
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+
+// メッセージ送信フォームを表示するための GET リクエストのルート
+Route::get('/messages', [MessageController::class, 'show']);
+// メッセージを送信するための POST リクエストのルート（SQS に送信）
+Route::post('/messages', [MessageController::class, 'send']);
