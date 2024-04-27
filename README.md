@@ -20,23 +20,30 @@ docker-compose -f docker/compose.yml exec app php artisan view:clear
 
 # マイグレーション
 docker-compose -f docker/compose.yml exec app php artisan migrate
-docker-compose -f docker/compose.yml exec app php artisan make:model User -m
-docker-compose -f docker/compose.yml exec app php artisan make:controller Auth/RegisterController
 docker-compose -f docker/compose.yml exec app php artisan make:migration create_posts_table --create=posts
+docker-compose -f docker/compose.yml exec app php artisan make:migration create_sqs_messages_table --create=sqs_messages
 
 # コントローラーの生成
+docker-compose -f docker/compose.yml exec app php artisan make:controller Auth/RegisterController
 docker-compose -f docker/compose.yml exec app php artisan make:controller Auth/LoginController
 docker-compose -f docker/compose.yml exec app php artisan make:controller PostController
 docker-compose -f docker/compose.yml exec app php artisan make:controller MessageController
+docker-compose -f docker/compose.yml exec app php artisan make:controller MessageProcessingController
 
 # モデルの生成
+docker-compose -f docker/compose.yml exec app php artisan make:model User -m
 docker-compose -f docker/compose.yml exec app php artisan make:model Post
+docker-compose -f docker/compose.yml exec app php artisan make:model SqsMessage
 
-# ジョブクラスの生成
+# ジョブの生成
 docker-compose -f docker/compose.yml exec app php artisan make:job SendToSQS
+docker-compose -f docker/compose.yml exec app php artisan make:job ProcessSqsMessage
 
 # composer
 docker-compose -f docker/compose.yml exec app composer require aws/aws-sdk-php
 
 # queue
-docker-compose -f docker/compose.yml exec app php artisan queue:work
+docker-compose -f docker/compose.yml exec app php artisan queue:restart
+docker-compose -f docker/compose.yml exec app php artisan queue:work --verbose
+docker-compose -f docker/compose.yml exec app php artisan queue:work sqs
+docker-compose -f docker/compose.yml exec app php artisan queue:work sqs --verbose

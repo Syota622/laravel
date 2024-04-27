@@ -32,3 +32,6 @@ Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/messages', [MessageController::class, 'show']);
 // メッセージを送信するための POST リクエストのルート（SQS に送信）
 Route::post('/messages', [MessageController::class, 'send']);
+
+// メッセージ処理を開始するための POST リクエストのルート
+Route::post('/start-processing', 'MessageProcessingController@start');
