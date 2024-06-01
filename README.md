@@ -56,8 +56,8 @@ curl -b cookies.txt -c cookies.txt -X POST http://localhost:8000/register \
     -H "X-Custom-Header: B9mU2TJe" \
     -H "X-CSRF-TOKEN: $csrf_token" \
     -H "Content-Type: application/x-www-form-urlencoded" \
-    --data-urlencode "name=mokokero3" \
-    --data-urlencode "email=mokokero3@example.com" \
+    --data-urlencode "name=test100" \
+    --data-urlencode "email=test100@example.com" \
     --data-urlencode "password=Passw0rd" \
     --data-urlencode "password_confirmation=Passw0rd" \
     --data-urlencode "_token=$csrf_token"
