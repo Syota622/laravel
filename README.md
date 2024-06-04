@@ -56,11 +56,11 @@ csrf_token=$(curl -s -c cookies.txt http://localhost:8000/register | perl -nle '
 - -b cookies.txtオプションを使って、保存したセッション情報をリクエストに含めています。
 ```sh
 curl -b cookies.txt -c cookies.txt -X POST http://localhost:8000/register \
-    -H "X-Custom-Header: B9mU2TJe" \
+    -H "X-Custom-Header: B9mU2TJe-test" \
     -H "X-CSRF-TOKEN: $csrf_token" \
     -H "Content-Type: application/x-www-form-urlencoded" \
-    --data-urlencode "name=test100" \
-    --data-urlencode "email=test100@example.com" \
+    --data-urlencode "name=test300" \
+    --data-urlencode "email=test300@example.com" \
     --data-urlencode "password=Passw0rd" \
     --data-urlencode "password_confirmation=Passw0rd" \
     --data-urlencode "_token=$csrf_token"
